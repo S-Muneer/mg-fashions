@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title">
+  <title>Banner image</title>
+  <rect width="1200" height="600" fill="#0f766e" />
+  <rect x="60" y="60" width="1080" height="480" rx="32" fill="#065f46" />
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#d1fae5" font-family="Arial, sans-serif" font-size="64">Banner image</text>
+</svg>

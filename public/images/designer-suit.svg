@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title">
+  <title>Designer Suit</title>
+  <rect width="800" height="800" fill="#f8fafc" />
+  <path d="M200 240h400v320H200z" fill="#0f172a" opacity="0.18" />
+  <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="#0f172a" font-family="Arial, sans-serif" font-size="48">Designer Suit</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title">
+  <title>Denim Jacket</title>
+  <rect width="800" height="800" fill="#e0f2fe" />
+  <path d="M220 180h360v420H220z" fill="#1d4ed8" opacity="0.16" />
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-size="52">Denim Jacket</text>
+</svg>

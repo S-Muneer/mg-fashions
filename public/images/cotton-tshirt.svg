@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title">
+  <title>Cotton T-Shirt</title>
+  <rect width="800" height="800" fill="#ecfccb" />
+  <path d="M240 180h320v440H240z" fill="#4d7c0f" opacity="0.18" />
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#365314" font-family="Arial, sans-serif" font-size="52">Cotton T-Shirt</text>
+</svg>

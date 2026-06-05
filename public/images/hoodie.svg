@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title">
+  <title>Hoodie</title>
+  <rect width="800" height="800" fill="#f8fafc" />
+  <path d="M200 220h400v360H200z" fill="#0f172a" opacity="0.14" />
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#0f172a" font-family="Arial, sans-serif" font-size="56">Hoodie</text>
+</svg>
