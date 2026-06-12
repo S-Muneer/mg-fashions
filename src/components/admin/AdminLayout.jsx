@@ -6,6 +6,7 @@ const navItems = [
   { to: "/admin", label: "Dashboard" },
   { to: "/admin/products", label: "Products" },
   { to: "/admin/orders", label: "Orders" },
+  { to: "/admin/invoices", label: "Invoices" },
 ];
 
 export default function AdminLayout() {
@@ -29,7 +30,7 @@ export default function AdminLayout() {
         />
 
         <aside
-          className={`admin-sidebar fixed inset-y-0 left-0 z-40 w-72 p-6 transition-transform duration-200 lg:static lg:translate-x-0 ${
+          className={`admin-sidebar fixed inset-y-0 left-0 z-40 w-[280px] max-w-[85vw] p-6 transition-transform duration-200 lg:static lg:translate-x-0 ${
             open ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -87,13 +88,13 @@ export default function AdminLayout() {
                 </h1>
               </div>
               <div className="hidden text-xs text-slate-500 sm:block">
+                <h1 className="text-sm sm:text-base lg:text-lg font-semibold text-slate-900"></h1>
                 Manage products, orders, and sales
               </div>
             </div>
           </header>
 
-          <main className="flex-1 px-4 py-6 lg:px-8 lg:py-8">
-            <Outlet />
+<main className="flex-1 overflow-x-hidden px-3 py-4 sm:px-4 sm:py-6 lg:px-8 lg:py-8">            <Outlet />
           </main>
         </div>
       </div>

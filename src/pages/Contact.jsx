@@ -10,8 +10,8 @@ export default function Contact() {
             <div className="space-y-2 text-gray-700">
               <p><strong>Store Name:</strong> MG Fashions</p>
               <p><strong>Location:</strong> Bangalore, India</p>
-              <p><strong>Email:</strong> support@mgfashions.com</p>
-              <p><strong>Phone:</strong> +91 90000 00000</p>
+              <p><strong>Email:</strong>muneer.dev@gmail.com</p>
+              <p><strong>Phone:</strong> +91 9014519566</p>
             </div>
           </div>
         </ScrollReveal>

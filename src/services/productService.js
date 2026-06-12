@@ -2,6 +2,9 @@ import { apiRequest } from "./apiClient";
 import { CLOUDINARY_FALLBACK_IMAGE } from "../constants/cloudinaryMedia";
 import { resolveMediaUrl } from "../utils/media";
 
+const PRODUCT_CACHE_KEY = "mgf_products_cache_v1";
+let productCache = null;
+
 function normalizeProduct(product) {
   return {
     id: Number(product.id),
@@ -19,9 +22,40 @@ function normalizeProduct(product) {
   };
 }
 
-export async function getProducts() {
+function saveProductCache(products) {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(PRODUCT_CACHE_KEY, JSON.stringify(products));
+  } catch {
+    // ignore storage errors
+  }
+}
+
+function loadProductCache() {
+  if (typeof window === "undefined") return null;
+  try {
+    const cached = sessionStorage.getItem(PRODUCT_CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getProducts(forceRefresh = false) {
+  if (!forceRefresh) {
+    if (productCache) return productCache;
+    const cached = loadProductCache();
+    if (cached) {
+      productCache = cached;
+      return productCache;
+    }
+  }
+
   const products = await apiRequest("/products");
-  return products.map(normalizeProduct);
+  const normalized = products.map(normalizeProduct);
+  productCache = normalized;
+  saveProductCache(normalized);
+  return normalized;
 }
 
 export async function getProductById(id) {

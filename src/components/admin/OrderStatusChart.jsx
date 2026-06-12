@@ -6,27 +6,36 @@ const data = [
   { name: "Pending", value: 18, color: "#f59e0b" },
   { name: "Cancelled", value: 7, color: "#ef4444" },
 ];
-
+const isMobile = window.innerWidth < 640;
 export default function OrderStatusChart({ segments = data }) {
   return (
     <div className="admin-panel h-full p-6">
       <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">
         Order Status Split
       </h2>
-      <p className="mt-1 text-sm text-slate-500">Current fulfillment distribution</p>
+      <p className="mt-1 text-sm text-slate-500">
+        Current fulfillment distribution
+      </p>
       <div className="mt-4">
-        <ResponsiveContainer width="100%" height={250}>
-          <PieChart>
-            <Pie data={segments} dataKey="value" nameKey="name" outerRadius={85}>
-              {segments.map((entry) => (
-                <Cell key={entry.name} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
+        <div className="h-[220px] sm:h-[250px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={segments}
+                dataKey="value"
+                nameKey="name"
+                outerRadius={isMobile ? 60 : 85}
+              >
+                {segments.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-      <div className="flex flex-wrap gap-3 mt-3 text-xs">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 mt-4 text-xs">
         {segments.map((entry) => (
           <div key={entry.name} className="flex items-center gap-1.5">
             <span

@@ -12,8 +12,7 @@ const companyLinks = [
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
   { to: "/faq", label: "FAQ" },
-  { to: "/user/login", label: "User Login" },
-  { to: "/admin/login", label: "Admin Login" },
+  { to: "/deals", label: "Deals" },
 ];
 
 const linkClass = "site-footer-link";
@@ -68,8 +67,8 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-bold mb-3">Support</h3>
           <p className="text-sm">Bangalore, India</p>
-          <p className="text-sm mt-1">support@mgfashions.com</p>
-          <p className="text-sm mt-1">+91 90000 00000</p>
+          <p className="text-sm mt-1">muneer.dev@gmail.com</p>
+          <p className="text-sm mt-1">+91 9014519566</p>
           <p className="text-xs text-teal-100 mt-4">
             Mon-Sat: 10:00 AM - 8:00 PM
           </p>

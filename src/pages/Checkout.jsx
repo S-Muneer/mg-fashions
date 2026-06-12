@@ -64,6 +64,7 @@ const Checkout = () => {
   if (!isUserLoggedIn) {
     return (
       <section className="py-12 sm:py-16 px-4 sm:px-6 max-w-3xl mx-auto">
+        
         <div className="bg-white p-6 rounded shadow">
           <h2 className="text-2xl font-bold mb-2">Login Required</h2>
           <p className="text-gray-600">
@@ -85,6 +86,8 @@ const Checkout = () => {
       <h2 className="text-2xl sm:text-3xl font-bold mb-6">Checkout</h2>
 
       <div className="bg-white p-6 rounded shadow mb-6">
+         <h1 className="inline-flex items-center gap-3 rounded-2 bg-cyan-500/10 px-4 py-2 text-red-600 text-sm font-semibold tracking-[0.18em] uppercase shadow-glow">This website is under construction. Please do not make any payment. This is a demo store and no real transactions will occur.
+</h1>
         <h3 className="font-semibold mb-4">Shipping Address</h3>
         <input
           className="input mb-3"

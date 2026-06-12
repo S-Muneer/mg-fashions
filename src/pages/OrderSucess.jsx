@@ -12,6 +12,11 @@ const OrderSuccess = () => {
         </div>
 
         <h2 className="text-2xl font-bold mb-2">Order Placed</h2>
+        <h3 className="text-lg font-semibold mb-4">This website is made for testing purposes only,</h3>
+        <p className="text-gray-600 mb-6">
+          Please do not make any payment. This is a demo store and no real transactions will occur.
+        </p>
+        <hr className="my-4 border-gray-300" />
         <p className="text-gray-600 mb-6">
           Thank you for shopping with MG Fashions. Your order has been successfully placed.
         </p>

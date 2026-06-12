@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
+import ProductSkeleton from "../components/ProductSkeleton";
 import ScrollReveal from "../components/ScrollReveal";
 import { CLOUDINARY_FALLBACK_IMAGE } from "../constants/cloudinaryMedia";
 import { getProductById, getProducts } from "../services/productService";
@@ -49,7 +50,31 @@ export default function ProductDetails() {
   const imageSource = resolveMediaUrl(product?.image || CLOUDINARY_FALLBACK_IMAGE);
 
   if (loading) {
-    return <section className="max-w-6xl mx-auto px-4 py-16">Loading product...</section>;
+    return (
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <div className="mb-8 space-y-4">
+          <div className="h-8 w-2/5 rounded-full bg-slate-200 animate-pulse" />
+          <div className="h-5 w-1/3 rounded-full bg-slate-200 animate-pulse" />
+        </div>
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="space-y-6">
+            <div className="h-[420px] rounded-[2rem] bg-slate-200 animate-pulse" />
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="h-40 rounded-3xl bg-slate-200 animate-pulse" />
+              <div className="h-40 rounded-3xl bg-slate-200 animate-pulse" />
+            </div>
+          </div>
+          <div className="space-y-5">
+            <div className="h-20 rounded-3xl bg-slate-200 animate-pulse" />
+            <div className="h-32 rounded-3xl bg-slate-200 animate-pulse" />
+            <div className="h-24 rounded-3xl bg-slate-200 animate-pulse" />
+          </div>
+        </div>
+        <div className="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2">
+          <ProductSkeleton count={2} />
+        </div>
+      </section>
+    );
   }
 
   if (!product) {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CardCarousel from "../components/CardCarousel";
 import HeroSlider from "../components/HeroSlider";
 import ProductCard from "../components/ProductCard";
+import ProductSkeleton from "../components/ProductSkeleton";
 import ScrollReveal from "../components/ScrollReveal";
 import { homeBanners, trustCards } from "../data/homeContent";
 import { getProducts } from "../services/productService";
@@ -10,13 +11,15 @@ import { getProducts } from "../services/productService";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts()
       .then((items) => setProducts(items.slice(0, 8)))
       .catch((apiError) => {
         setError(apiError.message || "Failed to load featured products");
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -114,6 +117,10 @@ export default function Home() {
           </div>
           {error ? (
             <p className="text-sm text-rose-600">{error}</p>
+          ) : loading ? (
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              <ProductSkeleton count={4} />
+            </div>
           ) : products.length === 0 ? (
             <p className="text-sm text-slate-600">No products available right now.</p>
           ) : (

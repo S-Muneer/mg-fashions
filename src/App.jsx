@@ -27,8 +27,10 @@ const GiftCards = lazy(() => import("./pages/GiftCards"));
 const UserLogin = lazy(() => import("./pages/UserLogin"));
 const UserRegister = lazy(() => import("./pages/UserRegister"));
 const Account = lazy(() => import("./pages/Account"));
+const MyOrders = lazy(() => import("./pages/MyOrders"));
 const UserProtectedRoute = lazy(() => import("./components/UserProtectedRoute"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Invoice = lazy(() => import("./pages/admin/Invoice"));
 
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-screen">
@@ -74,6 +76,14 @@ function App() {
               }
             />
             <Route
+              path="/my-orders"
+              element={
+                <UserProtectedRoute>
+                  <MyOrders />
+                </UserProtectedRoute>
+              }
+            />
+            <Route
               path="/admin"
               element={
                 <ProtectedRoute>
@@ -84,6 +94,7 @@ function App() {
               <Route index element={<AdminDashboard />} />
               <Route path="products" element={<AdminProducts />} />
               <Route path="orders" element={<Orders />} />
+              <Route path="invoices" element={<Invoice />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

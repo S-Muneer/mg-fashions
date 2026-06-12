@@ -21,24 +21,29 @@ const navItemClass = ({ isActive }) =>
 
 export default function Navbar() {
   const { cartCount } = useCart();
-  const { isUserLoggedIn, isAdmin, user, logoutUser } = useAuth();
+  const { isUserLoggedIn, isAdmin, logoutUser } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const closeMobileMenu = () => setMobileOpen(false);
 
   return (
     <header className="sticky top-0 z-50">
       <div className="site-top-strip text-center text-xs sm:text-sm py-1.5 font-semibold tracking-wide">
+        <marquee behavior="scroll" direction="left" scrollamount="5" className="text-red-600 font-bold ">
+          Please do not make any payment. This is a demo store and no real transactions will occur.This website is made for testing purposes only.
+        </marquee>
         Free shipping above Rs 1499 | New arrivals every week
       </div>
       <nav className="site-nav-shell backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between gap-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <img
                 src={logo}
                 alt="MG Fashions"
-                className="h-11 w-11 rounded-full object-cover border border-teal-200/50"
+                className="h-10 sm:h-11 w-10 sm:w-11 rounded-full object-cover border border-teal-200/50"
               />
-              <div>
+              <div className="hidden sm:block">
                 <p className="text-lg sm:text-xl font-bold tracking-wide">MG Fashions</p>
                 <p className="text-[10px] uppercase tracking-[0.25em] text-teal-100">
                   Style Store
@@ -47,31 +52,45 @@ export default function Navbar() {
             </Link>
 
             <button
-              onClick={() => setMobileOpen((v) => !v)}
-              className="lg:hidden site-ghost-btn px-3 py-1"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="lg:hidden site-ghost-btn px-3 py-2 transition"
+              aria-label="Toggle menu"
             >
-              Menu
+              {mobileOpen ? "✕ Close" : "☰ Menu"}
             </button>
 
-            <ul className="hidden lg:flex items-center gap-5 text-sm font-medium">
+            {/* Desktop Menu */}
+            <ul className="hidden lg:flex items-center gap-4 xl:gap-5 text-sm font-medium flex-1 justify-center">
               {NAV_LINKS.map((link) => (
-                <NavLink key={link.to} to={link.to} className={navItemClass}>
-                  {link.label}
-                </NavLink>
+                <li key={link.to}>
+                  <NavLink to={link.to} className={navItemClass}>
+                    {link.label}
+                  </NavLink>
+                </li>
               ))}
-              <NavLink to="/cart" className={navItemClass}>
-                Cart ({cartCount})
+            </ul>
+
+            {/* Desktop Auth & Cart */}
+            <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+              <NavLink to="/cart" className={navItemClass} title="Shopping Cart">
+                🛒 ({cartCount})
               </NavLink>
+
               {isUserLoggedIn ? (
                 <>
-                  <NavLink to="/account" className={navItemClass}>
-                    Hi, {user?.name?.split(" ")[0] || "Account"}
+                  <NavLink to="/account" className={navItemClass} title="My Account">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-full hover:shadow-md transition border border-cyan-200">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white text-xs font-bold shadow-md">
+                          👤
+                        </div>
+                        <span className="text-xs font-semibold text-slate-700">Account</span>
+                      </div>
                   </NavLink>
                   <button
                     onClick={logoutUser}
-                    className="site-ghost-btn px-3 py-1.5"
+                    className="site-ghost-btn px-3 py-1.5 transition"
                   >
-                    Logout
+                      🚪 Logout
                   </button>
                 </>
               ) : (
@@ -82,103 +101,136 @@ export default function Navbar() {
                   User Login
                 </Link>
               )}
+
               {isAdmin ? (
                 <>
-                  <NavLink to="/admin/dashboard" className={navItemClass}>
-                    Admin Dashboard
+                  <NavLink to="/admin/dashboard" className={navItemClass} title="Admin Dashboard">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-amber-50 to-orange-50 rounded-full hover:shadow-md transition border border-amber-200">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-xs font-bold shadow-md">
+                          ⚙️
+                        </div>
+                        <span className="text-xs font-semibold text-slate-700">Admin</span>
+                      </div>
                   </NavLink>
                   <button
                     onClick={logoutUser}
-                    className="site-ghost-btn px-3 py-1.5"
+                    className="site-ghost-btn px-3 py-1.5 transition"
                   >
-                    Logout
+                      🚪 Logout
                   </button>
                 </>
               ) : (
-                <Link
-                  to="/admin/login"
-                  className="site-primary-btn inline-flex items-center gap-2 px-4 py-2"
-                >
-                  <span className="grid h-6 w-6 place-content-center rounded-full bg-black/20 text-[11px] font-bold">
-                    AD
-                  </span>
-                  Admin
-                </Link>
+                !isUserLoggedIn && (
+                  <Link
+                    to="/admin/login"
+                      className="site-primary-btn inline-flex items-center gap-2 px-4 py-2 transition hover:shadow-lg hover:-translate-y-0.5"
+                  >
+                    <span className="grid h-5 w-5 place-content-center rounded-full bg-black/20 text-[10px] font-bold">
+                      AD
+                    </span>
+                    <span className="hidden sm:inline">Admin</span>
+                  </Link>
+                )
               )}
-            </ul>
+            </div>
           </div>
 
+          {/* Mobile Menu */}
           {mobileOpen && (
-            <ul className="site-mobile-menu lg:hidden mt-4 grid grid-cols-2 gap-3 text-sm font-medium p-4">
-              {NAV_LINKS.map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  className={navItemClass}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.label}
-                </NavLink>
-              ))}
-              <NavLink to="/cart" className={navItemClass} onClick={() => setMobileOpen(false)}>
-                Cart ({cartCount})
-              </NavLink>
-              {isUserLoggedIn ? (
-                <>
-                  <NavLink to="/account" className={navItemClass} onClick={() => setMobileOpen(false)}>
-                    Account
-                  </NavLink>
-                  <button
-                    onClick={() => {
-                      logoutUser();
-                      setMobileOpen(false);
-                    }}
-                    className="site-ghost-btn py-2 px-4"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <Link
-                  to="/user/login"
-                  className="site-outline-btn px-4 py-2 inline-block text-center"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  User Login
-                </Link>
-              )}
-              {isAdmin ? (
-                <>
+            <div className="lg:hidden mt-4 pt-4 border-t border-teal-200/30">
+              <ul className="site-mobile-menu grid grid-cols-1 p-4 gap-2 text-sm font-medium">
+                {NAV_LINKS.map((link) => (
                   <NavLink
-                    to="/admin/dashboard"
+                    key={link.to}
+                    to={link.to}
                     className={navItemClass}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={closeMobileMenu}
                   >
-                    Admin Dashboard
+                    {link.label}
                   </NavLink>
-                  <button
-                    onClick={() => {
-                      logoutUser();
-                      setMobileOpen(false);
-                    }}
-                    className="site-ghost-btn py-2 px-4 col-span-2"
+                ))}
+
+                <div className="border-t border-teal-200/30 pt-3  space-y-2">
+                  <NavLink
+                    to="/cart"
+                    className={navItemClass}
+                    onClick={closeMobileMenu}
                   >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <Link
-                  to="/admin/login"
-                  className="site-primary-btn inline-flex items-center justify-center gap-2 px-4 py-2 text-center col-span-2"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <span className="grid h-6 w-6 place-content-center rounded-full bg-black/20 text-[11px] font-bold">
-                    AD
-                  </span>
-                  Admin
-                </Link>
-              )}
-            </ul>
+                    🛒 Cart ({cartCount})
+                  </NavLink>
+
+                  {isUserLoggedIn ? (
+                    <>
+                      <NavLink
+                        to="/account"
+                        className={navItemClass}
+                        onClick={closeMobileMenu}
+                      >
+                        <span className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white text-xs font-bold">
+                            👤
+                          </div>
+                          My Account
+                        </span>
+                      </NavLink>
+                      <button
+                        onClick={() => {
+                          logoutUser();
+                          closeMobileMenu();
+                        }}
+                        className="site-ghost-btn  text-left px-3 py-2"
+                      >
+                        🚪 Logout
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      to="/user/login"
+                      className="site-outline-btn block text-center px-4 py-2"
+                      onClick={closeMobileMenu}
+                    >
+                      User Login
+                    </Link>
+                  )}
+
+                  {isAdmin ? (
+                    <>
+                      <NavLink
+                        to="/admin/dashboard"
+                        className={navItemClass}
+                        onClick={closeMobileMenu}
+                      >
+                        <span className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-xs font-bold">
+                            ⚙️
+                          </div>
+                          Admin Dashboard
+                        </span>
+                      </NavLink>
+                      <button
+                        onClick={() => {
+                          logoutUser();
+                          closeMobileMenu();
+                        }}
+                        className="site-ghost-btn w-full text-left px-3 py-2"
+                      >
+                        🚪 Logout
+                      </button>
+                    </>
+                  ) : (
+                    !isUserLoggedIn && (
+                      <Link
+                        to="/admin/login"
+                        className="site-primary-btn block text-center px-4 py-2"
+                        onClick={closeMobileMenu}
+                      >
+                        Admin Login
+                      </Link>
+                    )
+                  )}
+                </div>
+              </ul>
+            </div>
           )}
         </div>
       </nav>
